@@ -1,0 +1,45 @@
+{
+  "name": "wallpapermanager",
+  "version": "1.0.0",
+  "author": "Sebastian Falter",
+  "license": "ISC",
+  "description": "",
+  "main": "main/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:react": "cd frontend && npm run dev",
+    "dev:electron": "cross-env NODE_ENV=development electron .",
+    "build": "npm run build:react && electron-builder",
+    "build:react": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^36.5.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.psydo.wallpapermanager",
+    "productName": "Wallpapermanager",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main/**/*",
+      {
+        "from": "frontend/dist",
+        "to": "."
+      },
+      "preload.js",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "main/main.js"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.ico"
+    }
+  }
+}
