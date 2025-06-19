@@ -6,7 +6,22 @@ import {WiDaySunny, WiSunrise, WiSunset} from "react-icons/wi";
 import {useState} from "react";
 
 function App() {
-    const [isCycle, setIsCycle] = useState<boolean>(true);
+    const [isCycle, setIsCycle] = useState<boolean>(false);
+
+    const [selectedPath, setSelectedPath] = useState<string | null>(null);
+    const [images, setImages] = useState<string[]>([]);
+
+    const handleSelectFolder = async () => {
+        const result = await window.electronAPI.selectFolder();
+        if (!result) return;
+
+        const { folderPath, imageFiles } = result;
+        setSelectedPath(folderPath);
+
+        // Kombiniere absolute Pfade
+        const imagePaths = imageFiles.map(file => `file://${folderPath}/${file}`);
+        setImages(imagePaths);
+    };
 
   return (
     <main>
@@ -17,54 +32,25 @@ function App() {
             </button>
         </nav>
         <section className="wallpaperSection">
-            <div>
-                <img src="../public/placeholder.png" alt=""/>
-                <div className="hiddenImgOverlay">
-                    <button>
-                        SET AS WALLPAPER
-                    </button>
-                </div>
-            </div>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
-            <Card className="w-[200px]" radius="lg">
-                <Skeleton className="rounded-lg">
-                    <div className="h-24 rounded-lg bg-default-300" />
-                </Skeleton>
-            </Card>
+            {images.length > 0
+                ? images.map((src, index) => (
+                    <div key={index} className="wallpaperItem">
+                        <img src={src} alt={`Wallpaper ${index}`} />
+                        <div className="hiddenImgOverlay">
+                            <button>SET AS WALLPAPER</button>
+                        </div>
+                    </div>
+                ))
+                : Array.from({ length: 9 }).map((_, i) => (
+                    <Card key={i} className="w-[200px]" radius="lg">
+                        <Skeleton className="rounded-lg">
+                            <div className="h-24 rounded-lg bg-default-300" />
+                        </Skeleton>
+                    </Card>
+                ))}
+
+
+
         </section>
         <section className="dayNightCycleSection">
             <div className="dncCheck">
@@ -80,6 +66,11 @@ function App() {
             </div>
             <div className={isCycle ? "ddZone" : "ddZoneDisabled"}>
                 <WiSunset />
+            </div>
+
+            <div className="selectFolder">
+                {selectedPath && <p>{selectedPath}</p>}
+                <button onClick={handleSelectFolder}>Select folder</button>
             </div>
         </section>
     </main>

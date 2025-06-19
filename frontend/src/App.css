@@ -62,6 +62,12 @@
     --accent-800: #102c56;
     --accent-900: #08162b;
     --accent-950: #040b15;
+
+    --navbar-height: 0px;
+}
+
+*{
+    transition: 0.2s ease-in-out 0s;
 }
 
 body{
@@ -78,7 +84,7 @@ main{
     width: 100%;
 
     margin: 0;
-    padding-top: 60px;
+    padding-top: var(--navbar-height);
 
     color: var(--text-50);
     font-family: Bahnschrift, serif;
@@ -89,10 +95,12 @@ main{
 
 nav{
     width: 100%;
-    height: 60px;
+    /*height: 60px;*/
+    height: var(--navbar-height);
     background-color: var(--background-900);
 
-    display: flex;
+    /*display: flex;*/
+    display: none;
     justify-content: space-evenly;
     align-items: center;
 
@@ -132,20 +140,51 @@ main .wallpaperSection{
     padding-bottom: 1rem;
 }
 
-main .wallpaperSection div{
+main .wallpaperSection .wallpaperItem{
     width: calc(1920px / 6.5);
     aspect-ratio: 16/9;
     background-color: gray;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
 }
 
-main .wallpaperSection div img{
+main .wallpaperSection div{
+    width: calc(1920px / 6.5);
+    aspect-ratio: 16/9;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+main .wallpaperSection .wallpaperItem img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border: none;
     outline: none;
+}
+
+main .wallpaperSection .wallpaperItem .hiddenImgOverlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .wallpaperSection .wallpaperItem .hiddenImgOverlay button{
+    padding: 10px;
+    background-color: var(--accent-500);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+main .wallpaperSection .wallpaperItem .hiddenImgOverlay button:hover{
+    background-color: var(--primary-700);
 }
 
 main .dayNightCycleSection{
@@ -195,4 +234,24 @@ main .dncCheck{
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+main .selectFolder p{
+    color: gray;
+    font-size: xx-small;
+    width: 95%;
+    background-color: var(--background-900);
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+main .selectFolder button{
+    background-color: limegreen;
+    color: black;
+    font-weight: bolder;
+    width: 95%;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
 }

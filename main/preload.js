@@ -1,3 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
-contextBridge.exposeInMainWorld("api", {});
+contextBridge.exposeInMainWorld('electronAPI', {
+    selectFolder: () => ipcRenderer.invoke('select-folder')
+});
