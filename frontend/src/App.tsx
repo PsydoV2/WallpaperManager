@@ -1,34 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {IoSettingsOutline} from "react-icons/io5";
+import {Switch} from "@heroui/switch";
+import {Card, Skeleton} from "@heroui/react";
+import {WiDaySunny, WiSunrise, WiSunset} from "react-icons/wi";
+import {useState} from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [isCycle, setIsCycle] = useState<boolean>(true);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main>
+        <nav>
+            <h2>Wallpapermanager</h2>
+            <button>
+                <IoSettingsOutline />
+            </button>
+        </nav>
+        <section className="wallpaperSection">
+            <div>
+                <img src="../public/placeholder.png" alt=""/>
+                <div className="hiddenImgOverlay">
+                    <button>
+                        SET AS WALLPAPER
+                    </button>
+                </div>
+            </div>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+            <Card className="w-[200px]" radius="lg">
+                <Skeleton className="rounded-lg">
+                    <div className="h-24 rounded-lg bg-default-300" />
+                </Skeleton>
+            </Card>
+        </section>
+        <section className="dayNightCycleSection">
+            <div className="dncCheck">
+            <p>Day-Night Cycle</p>
+            <Switch defaultChecked={isCycle} color="success" onChange={() => setIsCycle(!isCycle)}></Switch>
+            </div>
+
+            <div className={isCycle ? "ddZone" : "ddZoneDisabled"}>
+                <WiSunrise />
+            </div>
+            <div className={isCycle ? "ddZone" : "ddZoneDisabled"}>
+                <WiDaySunny />
+            </div>
+            <div className={isCycle ? "ddZone" : "ddZoneDisabled"}>
+                <WiSunset />
+            </div>
+        </section>
+    </main>
   )
 }
 

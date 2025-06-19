@@ -3,8 +3,8 @@ const path = require("path");
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1000,
-    height: 700,
+    width: 1300,
+    height: 800,
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
@@ -15,10 +15,10 @@ function createWindow() {
   });
 
   if (process.env.NODE_ENV === "development") {
-    win.loadURL("http://localhost:5173");
+    win.loadURL("http://localhost:5173").then(null);
     win.webContents.openDevTools();
   } else {
-    win.loadFile("index.html");
+    win.loadFile("index.html").then(null);
   }
 }
 
